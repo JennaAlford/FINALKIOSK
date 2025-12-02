@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Belief Diagram – Digital Afterlife</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background: black;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: #00ff66;
+    }
+    .container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    .diagram {
+      position: relative;
+      width: 80%;
+      height: 60%;
+    }
+    .node {
+      position: absolute;
+      width: 220px;
+      height: 80px;
+      background: #00ff66;
+      color: black;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 20px #00ff66;
+    }
+    #christianity { top: 0%; left: 50%; transform: translateX(-50%); }
+    #judaism { bottom: 0%; left: 15%; }
+    #islam { bottom: 0%; right: 15%; }
+    #digital { top: 38%; left: 50%; transform: translateX(-50%); width: 260px; }
+    .modal-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      height: 100%; width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal {
+      background: black;
+      border: 3px solid #00ff66;
+      border-radius: 12px;
+      padding: 20px;
+      width: 70%;
+      font-size: 1.4rem;
+      color: #00ff66;
+    }
+    .close-btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #00ff66;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .nav-btn {
+      position: absolute;
+      bottom: 5%;
+      padding: 20px 40px;
+      font-size: 2rem;
+      font-weight: bold;
+      background: #00ff66;
+      color: black;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>BELIEFS & DIGITAL MEMORY</h1>
+
+    <div class="diagram">
+      <div id="christianity" class="node" onclick="openModal('christianity')">Christianity</div>
+      <div id="judaism" class="node" onclick="openModal('judaism')">Judaism</div>
+      <div id="islam" class="node" onclick="openModal('islam')">Islam</div>
+      <div id="digital" class="node" onclick="openModal('digital')">Digital Memorials</div>
+    </div>
+
+    <button class="nav-btn" onclick="location.href='Page6.html'">CONTINUE</button>
+  </div>
+
+  <div class="modal-bg" id="modalBg">
+    <div class="modal" id="modalContent"></div>
+  </div>
+
+  <script>
+    const content = {
+      christianity: "Traditional Christian memorialization emphasizes burial, ritual mourning, and remembrance through prayer. In digital spaces, online memorials and virtual candles extend these practices, allowing remembrance to continue beyond physical sites.",
+      judaism: "Jewish mourning centers on respect for the deceased, burial rites, and rituals like Yahrzeit. Digital tools now assist with memorial dates, online archives, and community remembrance, supporting tradition while remaining careful about representation.",
+      islam: "Islamic memorialization prioritizes modesty, burial, and ongoing prayers for the deceased. Digital preservation is used cautiously, often focusing on genealogy, grave mapping, or prayer reminders rather than visual memorialization.",
+      digital: "Digital memorials create new forms of remembrance—web cemeteries, virtual archives, and interactive tributes. These tools intersect with religious practice by extending memory, but each tradition adapts them differently based on cultural values."
+    };
+
+    function openModal(type) {
+      document.getElementById('modalContent').innerHTML = `
+        <p>${content[type]}</p>
+        <button class='close-btn' onclick='closeModal()'>Close</button>
+      `;
+      document.getElementById('modalBg').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('modalBg').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
