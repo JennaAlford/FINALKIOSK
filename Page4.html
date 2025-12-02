@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz – Digital Afterlife</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background: black;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: #00ff66;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    .question {
+      margin: 15px 0;
+      font-size: 1.4rem;
+    }
+    .choices button {
+      display: block;
+      margin: 8px auto;
+      padding: 12px 25px;
+      font-size: 1.2rem;
+      background: #00ff66;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .choices button.correct {
+      background: #33ff88;
+    }
+    .choices button.wrong {
+      background: #ff4444;
+      color: white;
+    }
+    #score {
+      font-size: 2rem;
+      margin-top: 20px;
+    }
+    .nav-btn {
+      margin-top: 30px;
+      padding: 20px 40px;
+      font-size: 2rem;
+      font-weight: bold;
+      background: #00ff66;
+      color: black;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>DIGITAL AFTERLIFE QUIZ</h1>
+
+    <div id="quiz">
+      <div class="question" id="q1">1. How long do major social media platforms usually keep a deceased user's data, including backups and metadata?</div>
+      <div class="choices">
+        <button onclick="answer(1, this, 'b')">A. Platforms delete most user data within a year</button>
+        <button onclick="answer(1, this, 'b')">B. Platforms may keep data indefinitely, including backups</button>
+      </div>
+
+      <div class="question" id="q2">2. What actually happens to most email accounts when their owner dies?</div>
+      <div class="choices">
+        <button onclick="answer(2, this, 'a')">A. They stay active and retain data unless an authorized person intervenes</button>
+        <button onclick="answer(2, this, 'a')">B. They shut down automatically after 180 days</button>
+      </div>
+    </div>
+
+    <div id="score"></div>
+    <button class="nav-btn" id="continueBtn" onclick="location.href='Page5.html'">CONTINUE</button>
+  </div>
+
+  <script>
+    let total = 0;
+    let answered = {1: false, 2: false, 3: false};
+
+    const explanations = {
+      1: "Many platforms retain user data indefinitely—even after death—because backups, logs, and archived metadata are rarely erased automatically.",
+      2: "Most email services keep accounts active and preserve stored data until a verified request for deletion is made.",
+      3: "Digital memorials expand how remembrance happens, offering new spaces for mourning while traditional religious rites continue to guide practice."
+    };
+
+    function answer(questionNumber, button, correctLetter) {
+      if (answered[questionNumber]) return;
+      answered[questionNumber] = true;
+
+      const buttons = button.parentElement.querySelectorAll('button');
+      buttons.forEach(btn => btn.disabled = true);
+
+      const correctBtn = buttons[correctLetter.charCodeAt(0) - 97];
+      correctBtn.classList.add('correct');
+
+      if (button !== correctBtn) {
+        button.classList.add('wrong');
+        const explanation = document.createElement('div');
+        explanation.style.color = '#00ff66';
+        explanation.style.fontSize = '1.2rem';
+        explanation.style.marginTop = '5px';
+        explanation.textContent = explanations[questionNumber];
+        button.parentElement.appendChild(explanation);
+      } else {
+        total++;
+      }
+
+      if (Object.values(answered).every(v => v)) {
+        document.getElementById('score').textContent = `Your Score: ${total} / 3`;
+        document.getElementById('continueBtn').style.display = 'inline-block';
+      }
+    }
+  </script>
+</body>
+</html>
