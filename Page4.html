@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Digital Afterlife Quiz</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background:black; color:#00ff66;">
+  <div class="container" style="padding-top:10px;">
+
+    <h1>DIGITAL AFTERLIFE QUIZ</h1>
+    <p class="description" style="max-width:85%; margin-bottom:25px;">
+      Test your knowledge about what happens to digital data and accounts after someone passes away.
+    </p>
+
+    <div id="quiz" style="width:90%; max-width:900px;">
+
+      <!-- Question 1 -->
+      <div class="question">1. How long do major platforms usually retain a deceased person's data?</div>
+      <div class="choices">
+        <button style="background:#00ff66; color:black;" onclick="answer(1, this, 'b')">A. Most data is deleted within one year</button>
+        <button style="background:#00ff66; color:black;" onclick="answer(1, this, 'b')">B. Data may be kept indefinitely, including backups</button>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="question">2. What usually happens to most email accounts after someone dies?</div>
+      <div class="choices">
+        <button style="background:#00ff66; color:black;" onclick="answer(2, this, 'a')">A. Accounts remain active unless someone formally requests removal</button>
+        <button style="background:#00ff66; color:black;" onclick="answer(2, this, 'a')">B. They are automatically deleted after 6 months</button>
+      </div>
+
+    </div>
+
+    <!-- Score display -->
+    <div id="score" style="margin-top:20px; font-size:2rem;"></div>
+
+    <!-- Continue button -->
+    <button class="nav-btn" id="continueBtn" style="display:none; margin-top:25px; background:#00ff66; color:black;"" style="display:none; margin-top:25px;" onclick="location.href='Page5.html'">CONTINUE</button>
+
+  </div>
+
+  <script>
+    let total = 0;
+    let answered = {1:false, 2:false};
+
+    const explanations = {
+      1: "Platforms often retain user data indefinitely due to backups, logs, and archival systems that are not automatically deleted.",
+      2: "Email accounts generally remain active until a legally verified request triggers deactivation or deletion."
+    };
+
+    function answer(qNum, button, correctLetter) {
+      if (answered[qNum]) return;
+      answered[qNum] = true;
+
+      const buttons = button.parentElement.querySelectorAll('button');
+      buttons.forEach(btn => btn.disabled = true);
+
+      const correctBtn = buttons[correctLetter.charCodeAt(0) - 97];
+      correctBtn.classList.add('correct');
+
+      if (button !== correctBtn) {
+        button.classList.add('wrong');
+        const explanation = document.createElement('div');
+        explanation.style.color = '#00ff66';
+        explanation.style.fontSize = '1.2rem';
+        explanation.style.marginTop = '5px';
+        explanation.textContent = explanations[qNum];
+        button.parentElement.appendChild(explanation);
+      } else {
+        total++;
+      }
+
+      if (answered[1] && answered[2]) {
+        document.getElementById('score').textContent = `Your Score: ${total} / 2`;
+        document.getElementById('continueBtn').style.display = 'block';
+      }
+    }
+  </script>
+
+</body>
+</html>
